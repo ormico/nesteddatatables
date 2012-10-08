@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jquery.zacksfiasco.subDataTabl</title>
+    <link href="css/smoothness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <script src="jquery-1.7.2.js"></script>
+    <script src="jquery-ui-1.8.23.custom.min.js"></script>
+    <script src="DataTables-1.9.4/jquery.dataTables.js"></script>
+    <script src="jquery.zacksfiasco.subDataTables.js"></script>
+    <link href="jquery.zacksfiasco.subDataTables.css" rel="stylesheet" />
+</head>
+<body>
+    <script type="text/javascript">
+        function getData(dt, wsParams) {
+            var d = [
+                { a: 'alpha', b: 'beta', c: 'gamma', d: 'delta' },
+                { a: 'alpha2', b: 'beta2', c: 'gamma', d: 'delta' },
+                { a: 'alpha3', b: 'beta3', c: 'gamma', d: 'delta' },
+                { a: 'alpha4', b: 'beta4', c: 'gamma', d: 'delta' },
+                { a: 'alpha5', b: 'beta5', c: 'gamma', d: 'delta' },
+                { a: 'alpha6', b: 'beta6', c: 'gamma', d: 'delta' },
+                { a: 'alpha7', b: 'beta7', c: 'gamma', d: 'delta' },
+                { a: 'alpha8', b: 'beta8', c: 'gamma', d: 'delta' },
+                { a: 'alpha9', b: 'beta9', c: 'gamma', d: 'delta' }
+            ];
+
+            dt.fnAddData(d);
+        }
+
+        $(function () {
+            $('#t').subDataTables({
+                dataSource: "WebService.asmx/GetStates",
+                columns:
+                    [
+                        { mDataProp: "StateID", subDataTables: { key: true, paramName: "StateID" } },
+                        { mDataProp: "StateName" },
+                        { mDataProp: "Population" }
+                    ],
+                subTable:
+                    {
+                        dataSource: "WebService.asmx/GetCounties",
+                        columns:
+                            [
+                                { mDataProp: "StateID", bVisible: false, subDataTables: { key: true, paramName: "StateID" } },
+                                { mDataProp: "Name", subDataTables: { key: true, paramName: "CountyName" } },
+                                { mDataProp: "AreaSqMi" },
+                                { mDataProp: "Population" },
+                                { mDataProp: "WebUrl" }
+                            ],
+                        subTable:
+                            {
+                                dataSource: "WebService.asmx/GetCities",
+                                columns:
+                                    [
+                                        { mDataProp: "Name" },
+                                        { mDataProp: "AreaSqMi" },
+                                        { mDataProp: "Population" },
+                                        { mDataProp: "WebUrl" }
+                                    ],
+                                subTable: null
+                            }
+                    }
+            });
+
+            $('#u').subDataTables({
+                dataSource: "WebService.asmx/GetStates",
+                columns:
+                    [
+                        { mDataProp: "StateID", subDataTables: { key: true, paramName: "StateID" } },
+                        { mDataProp: "StateName" },
+                        { mDataProp: "Population" }
+                    ],
+                subTable:
+                    {
+                        dataSource: "WebService.asmx/GetCounties",
+                        columns:
+                            [
+                                { mDataProp: "StateID", bVisible: false, subDataTables: { key: true, paramName: "StateID" } },
+                                { mDataProp: "Name", subDataTables: { key: true, paramName: "CountyName" } },
+                                { mDataProp: "AreaSqMi" },
+                                { mDataProp: "Population" },
+                                { mDataProp: "WebUrl" }
+                            ],
+                        subTable:
+                            {
+                                dataSource: "WebService.asmx/GetCities",
+                                columns:
+                                    [
+                                        { mDataProp: "Name" },
+                                        { mDataProp: "AreaSqMi" },
+                                        { mDataProp: "Population" },
+                                        { mDataProp: "WebUrl" }
+                                    ]
+                            }
+                    }
+            });
+
+            $('#v').subDataTables({
+                dataSource: getData,
+                columns:
+                    [
+                        { mDataProp: "a", subDataTables: { key: true } },
+                        { mDataProp: "b" },
+                        { mDataProp: "c" },
+                        { mDataProp: "d" }
+                    ],
+                rowKeys: ['StateID'],
+                subTable:
+                    {
+                        dataSource: getData,
+                        columns:
+                            [
+                                { mDataProp: "a", subDataTables: { key: true } },
+                                { mDataProp: "b", subDataTables: { key: true } },
+                                { mDataProp: "c" },
+                                { mDataProp: "d" }
+                            ]
+                    }
+            });
+        });
+    </script>
+    <table id="t" style="width:100%"></table>
+    <table id="u" style="width:100%"></table>
+    <table id="v" style="width:100%"></table>
+</body>
+</html>

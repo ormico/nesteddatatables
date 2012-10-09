@@ -163,18 +163,10 @@ CSS Classes:
                 }
 
                 var parentTable = $(parentRow).closest('table').dataTable();
-
-                var dto =
+                var dto = $.extend({}, self.options.dataTablesOptions,
                 {
-                    bPaginate: false,
-                    bFilter: false,
-                    bLengthChange: false,
-                    bInfo: false,
-                    bJQueryUI: true,
-                    bAutoWidth: false,
-                    aaSorting: [],
                     aoColumns: combinedCols
-                };
+                });
 
                 // new dataTable
                 var newDt;
@@ -199,10 +191,6 @@ CSS Classes:
 
                         var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " nestedDataTables-nestedTable'></table></div>";
                         var subRow = parentTable.fnOpen(parentRow, nestedTableHtml, 'details');
-
-                        if (typeof (subRow) === "undefined") {
-                            var mydebug = true;
-                        }
                         var newTable = $(subRow).find("table");
                         newDt = newTable.dataTable(dto);
                         self._loadData(s, newDt, parentRow, parentTable);

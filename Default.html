@@ -71,6 +71,16 @@
 
             $('#u').nestedDataTables({
                 dataSource: "WebService.asmx/GetStates",
+                dataTablesOptions:
+                {
+                    bPaginate: false,
+                    bFilter: false,
+                    bLengthChange: false,
+                    bInfo: false,
+                    bJQueryUI: true,
+                    bAutoWidth: false,
+                    aaSorting: []
+                },
                 columns:
                     [
                         { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
@@ -104,6 +114,10 @@
 
             $('#v').nestedDataTables({
                 dataSource: getData,
+                dataTablesOptions:
+                {
+                    bJQueryUI: true
+                },
                 columns:
                     [
                         { mDataProp: "a", nestedDataTables: { key: true } },

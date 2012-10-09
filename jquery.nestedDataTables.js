@@ -52,6 +52,24 @@ Options:
             POST. It will send the column key values to the web service as JSON and
             it will expect the returned data to come back as JSON data.
 
+    dataTablesOptions: Optional. Options to pass to dataTables plugin when creating each dataTable.
+        For example, to use jQueryUI set this option to { bJQueryUI: true }
+
+    buttonClass: CSS class to set on the button column for opening and closing nested tables. 
+        If you turn on JQueryUI support, this is set to ui-icon.
+
+    openButtonClass: CSS class to set on the button column for opening a nested tables. 
+        If you turn on JQueryUI support, this is set to ui-icon-circle-triangle-e.
+
+    openButtonText: Text to display in the button column for opening a nested table.
+        If you turn on JQueryUI support, this is set to blank, otherwise it defaults to "[+]" unless set by the user.
+
+    closeButtonClass: CSS class to set on the button column for closing a nested tables. 
+        If you turn on JQueryUI support, this is set to ui-icon-circle-triangle-s.
+
+    closeButtonText: Text to display in the button column for closing a nested table.
+        If you turn on JQueryUI support, this is set to blank, otherwise it defaults to "[-]" unless set by the user.
+
     nestedDataTable: This property specifies the child table to load when the user clicks the
         open icon that is the first column of the table. This property is an object
         that recursivly has the same properties as the plugin options, meaning that

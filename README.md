@@ -1,4 +1,4 @@
-﻿nestedDataTables v1.1.0
+﻿nestedDataTables v1.2.0
 =========================
 
 Copyright 2012 Zack Moore, all rights reserved.
@@ -10,7 +10,7 @@ or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
 
 ## Depends on:
 - jQuery v1.7.2 or higher or jQuery v1.8.2 or higher
-- jQueryUI v. 1.8.23 or higher
+- jQueryUI v. 1.8.23 or higher (optional)
 
 ## Description:
 Create a series of nested dataTables.
@@ -48,6 +48,24 @@ When using this option, allowing this plugin to generate the data and success pr
 ####        string: 
 A url for the web service to call. The web service will be called via POST. It will send the column key values to the web service as JSON and
 it will expect the returned data to come back as JSON data.
+
+###    dataTablesOptions:
+Optional. Options to pass to dataTables plugin when creating each dataTable. For example, to use jQueryUI set this option to { bJQueryUI: true }
+
+###    buttonClass:
+CSS class to set on the button column for opening and closing nested tables. If you turn on JQueryUI support, this is set to ui-icon.
+
+###    openButtonClass:
+CSS class to set on the button column for opening a nested tables. If you turn on JQueryUI support, this is set to ui-icon-circle-triangle-e.
+
+###    openButtonText: 
+Text to display in the button column for opening a nested table. If you turn on JQueryUI support, this is set to blank, otherwise it defaults to "[+]" unless set by the user.
+
+###    closeButtonClass: 
+CSS class to set on the button column for closing a nested tables. If you turn on JQueryUI support, this is set to ui-icon-circle-triangle-s.
+
+###    closeButtonText: 
+Text to display in the button column for closing a nested table. If you turn on JQueryUI support, this is set to blank, otherwise it defaults to "[-]" unless set by the user.
 
 ###    nestedDataTable: 
 This property specifies the child table to load when the user clicks the open icon that is the first column of the table. This property is an object

@@ -58,12 +58,12 @@ Options:
         it has the properties 'columns', 'dataSource', and 'nestedDataTable'.
 
 CSS Classes:
-    zacksfiasco-nestedDataTables: top level table
+    nestedDataTables: top level table
 
-    zacksfiasco-nestedDataTables-nestedTable: each table below the parent table.
+    nestedDataTables-nestedTable: each table below the parent table.
 */
 (function ($) {
-    $.widget("zacksfiasco.nestedDataTables",
+    $.widget("nestedDataTables.nestedDataTables",
     {
         options:
         {
@@ -82,8 +82,7 @@ CSS Classes:
             // create internal html
             self._createPrefix();
 
-            self.element.addClass('ui-widget');
-            self.element.addClass('zacksfiasco-nestedDataTables');
+            self.element.addClass('nestedDataTables');
 
             var curLevel = self.options;
             var curLevelNum = 0;
@@ -130,7 +129,7 @@ CSS Classes:
                     sDefaultContent: "<span class='ui-icon ui-icon-circle-triangle-e'></span>",
                     sTitle: "",
                     bSortable: false,
-                    sClass: "ui-state-default ui-corner-all " + levelCssClass
+                    sClass: "ui-state-default ui-corner-all nestedDataTables-buttonCol " + levelCssClass
                 }
             ];
 
@@ -175,7 +174,7 @@ CSS Classes:
                 var parentRowIndex = $.inArray(parentRow, self.options.openRows);
                 if (parentRowIndex === -1) {
                     // row is not open. open it.
-                    var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " zacksfiasco-nestedDataTables-nestedTable'></table></div>";
+                    var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " nestedDataTables-nestedTable'></table></div>";
                     var subRow = parentTable.fnOpen(parentRow, nestedTableHtml, 'details');
                     
                     if (typeof (subRow) === "undefined") {

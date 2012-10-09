@@ -75,6 +75,24 @@ CSS Classes:
                 var o = self.options;
                 o.openRows = [];
 
+                o.dataTablesOptions = $.extend({
+                        bPaginate: false,
+                        bFilter: false,
+                        bLengthChange: false,
+                        bInfo: false,
+                        // bJQueryUI: true,
+                        bAutoWidth: false,
+                        aaSorting: []
+                    }, o.dataTablesOptions);
+                
+                if (o.dataTablesOptions.bJQueryUI === true) {
+                    o.buttonClass = 'ui-icon';
+                    o.openButtonClass = 'ui-icon-circle-triangle-e';
+                    o.openButtonText='';
+                    o.closeButtonClass = 'ui-icon-circle-triangle-s';
+                    o.closeButtonText='';
+                }
+
                 // create internal html
                 self._createPrefix();
 
@@ -116,13 +134,24 @@ CSS Classes:
                 var self = this;
                 var levelCssClass = self._id('level' + s.level);
                 var parentLevelCssClass = self._id('level' + (s.level - 1));
+                var buttonColHtml = "<span class='" + self.options.buttonClass + " " + self.options.openButtonClass + "'>";
+                var buttonColClass = "nestedDataTables-buttonCol " + levelCssClass;
+
+                if (self.options.dataTablesOptions.bJQueryUI === true) {
+                    buttonColClass = "ui-state-default ui-corner-all " + buttonColClass;
+                    self.options.openButtonText = '';
+                    self.options.closeButtonText = '';
+                }
+
+                buttonColHtml = buttonColHtml + self.options.openButtonText + "</span>";
+
                 var combinedCols =
                 [
                     {
-                        sDefaultContent: "<span class='ui-icon ui-icon-circle-triangle-e'></span>",
+                        sDefaultContent: buttonColHtml,
                         sTitle: "",
                         bSortable: false,
-                        sClass: "ui-state-default ui-corner-all nestedDataTables-buttonCol " + levelCssClass
+                        sClass: buttonColClass
                     }
                 ];
 
@@ -160,12 +189,14 @@ CSS Classes:
                     var tblLevelCssClass = self._id('tbllevel' + s.level);
 
                     // toggle open/close icons
-                    $(parentRow).find("." + parentLevelCssClass + ' > span').toggleClass("ui-icon-circle-triangle-e ui-icon-circle-triangle-s");
+                    var $parentRow = $(parentRow).find("." + parentLevelCssClass + ' > span').toggleClass(self.options.openButtonClass + ' ' + self.options.closeButtonClass);
 
                     // see if row is open or closed
                     var parentRowIndex = $.inArray(parentRow, self.options.openRows);
                     if (parentRowIndex === -1) {
                         // row is not open. open it.
+                        $parentRow.text(self.options.closeButtonText);
+
                         var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " nestedDataTables-nestedTable'></table></div>";
                         var subRow = parentTable.fnOpen(parentRow, nestedTableHtml, 'details');
 
@@ -182,6 +213,8 @@ CSS Classes:
                     else {
                         // row is open. close it.
                         parentTable.fnClose(parentRow);
+
+                        $parentRow.text(self.options.openButtonText);
 
                         // remove item from open list
                         self.options.openRows.splice(parentRowIndex, 1);
@@ -284,6 +317,11 @@ CSS Classes:
             columns: [],
             dataSource: null,
             dataSourceParams: {},
+            buttonClass: '',
+            openButtonClass: '',
+            openButtonText: '[+]',
+            closeButtonClass: '',
+            closeButtonText: '[-]',
             nestedDataTable: null
         };
         methods.options = $.extend({}, optionsDefaults, options);

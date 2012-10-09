@@ -76,7 +76,8 @@ This property may be a string, function, or object.
 ####        function: 
 If dataSource is a function, then this function will be called to load this table. The first parameter passed to this function will be the dataTable to load 
 data into. The function must call fnAddData() on this object. See DataTables documentation.
-E.g. function F(dt) { var z = [ { a:"A", b: "B" } ]; dt.fnAddData(z); }
+The second parameter passed to this function are the query paramters.
+E.g. function F(dt, wsParams) { var z = [ { a:"A", b: "B" } ]; dt.fnAddData(z); }
 
 ####        object: 
 An ajax options object. This object should follow the same syntax as an options object passed to jQuery.ajax(). If no data property is specified, one
@@ -88,6 +89,15 @@ When using this option, allowing this plugin to generate the data and success pr
 ####        string: 
 A url for the web service to call. The web service will be called via POST. It will send the column key values to the web service as JSON and
 it will expect the returned data to come back as JSON data.
+
+###    dataSourceParams:
+Retrieve additional parameters that you would like to pass to the data source query. This option may be a function or an object.
+
+####            function:
+Returns an object whose properties are added to those passed to the data source query.
+            
+####            object:
+An object whose properties are added to those passed to the data source query.
 
 ###    dataTablesOptions:
 Optional. Options to pass to dataTables plugin when creating each dataTable. For example, to use jQueryUI set this option to { bJQueryUI: true }

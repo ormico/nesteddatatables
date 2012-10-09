@@ -1,5 +1,5 @@
 ﻿/**
-Zack's Fiasco nestedDataTables v1.0.0
+nestedDataTables v1.0.0
 Copyright 2012 Zack Moore, all rights reserved.
 This source file is free software, under either the GPL v2 license or a BSD style license.
 
@@ -18,7 +18,7 @@ Options:
     columns: this describes the columns that should populate the dataTable. This parameter 
         is passed directly to dataTable() so it takes the same syntax as the dataTable 
         option aoColumns with one addition. Each element in the columns array may contain
-        an optional parameter named subDataTable.
+        an optional parameter named nestedDataTable.
 
         nestedDataTables: 
             key: a flag indicating whether or not this column is a key. key columns may
@@ -61,6 +61,8 @@ CSS Classes:
     nestedDataTables: top level table
 
     nestedDataTables-nestedTable: each table below the parent table.
+
+    nestedDataTables-buttonCol: the column in each dataTable that is a button to open the next dataTable
 */
 (function ($) {
     $.widget("nestedDataTables.nestedDataTables",

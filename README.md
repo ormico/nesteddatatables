@@ -9,8 +9,9 @@ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
 
 ## Depends on:
-- jQuery v1.7.2 or higher or jQuery v1.8.2 or higher
-- jQueryUI v. 1.8.23 or higher (optional)
+- jQuery v1.7.2 or higher or jQuery v1.8.2 or higher http://jquery.com
+- DataTables v1.9.4 or higher http://www.datatables.net/
+- jQueryUI v. 1.8.23 or higher (optional) http://jqueryui.com 
 
 ## Description:
 Create a series of nested dataTables.

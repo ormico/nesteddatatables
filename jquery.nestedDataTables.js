@@ -20,7 +20,7 @@ Options:
         option aoColumns with one addition. Each element in the columns array may contain
         an optional parameter named subDataTable.
 
-        subDataTable: 
+        nestedDataTables: 
             key: a flag indicating whether or not this column is a key. key columns may
                 be used to query the data for the next lower table. 
 

@@ -1,4 +1,4 @@
-﻿nestedDataTables v1.2.0
+﻿nestedDataTables v1.2.1
 =========================
 
 Copyright 2012 Zack Moore, all rights reserved.

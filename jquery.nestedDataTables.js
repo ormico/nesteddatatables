@@ -1,5 +1,5 @@
 ﻿/**
-nestedDataTables v1.1.0
+nestedDataTables v1.2.1
 Copyright 2012 Zack Moore, all rights reserved.
 This source file is free software, under either the GPL v2 license or a BSD style license.
 

@@ -28,26 +28,26 @@
         }
 
         $(function () {
-            $('#t').subDataTables({
+            $('#t').nestedDataTables({
                 dataSource: "WebService.asmx/GetStates",
                 columns:
                     [
-                        { mDataProp: "StateID", subDataTables: { key: true, paramName: "StateID" } },
+                        { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
                         { mDataProp: "StateName" },
                         { mDataProp: "Population" }
                     ],
-                subTable:
+                nestedDataTable:
                     {
                         dataSource: "WebService.asmx/GetCounties",
                         columns:
                             [
-                                { mDataProp: "StateID", bVisible: false, subDataTables: { key: true, paramName: "StateID" } },
-                                { mDataProp: "Name", subDataTables: { key: true, paramName: "CountyName" } },
+                                { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                                { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                                 { mDataProp: "AreaSqMi" },
                                 { mDataProp: "Population" },
                                 { mDataProp: "WebUrl" }
                             ],
-                        subTable:
+                        nestedDataTable:
                             {
                                 dataSource: "WebService.asmx/GetCities",
                                 columns:
@@ -57,31 +57,31 @@
                                         { mDataProp: "Population" },
                                         { mDataProp: "WebUrl" }
                                     ],
-                                subTable: null
+                                nestedDataTable: null
                             }
                     }
             });
 
-            $('#u').subDataTables({
+            $('#u').nestedDataTables({
                 dataSource: "WebService.asmx/GetStates",
                 columns:
                     [
-                        { mDataProp: "StateID", subDataTables: { key: true, paramName: "StateID" } },
+                        { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
                         { mDataProp: "StateName" },
                         { mDataProp: "Population" }
                     ],
-                subTable:
+                nestedDataTable:
                     {
                         dataSource: "WebService.asmx/GetCounties",
                         columns:
                             [
-                                { mDataProp: "StateID", bVisible: false, subDataTables: { key: true, paramName: "StateID" } },
-                                { mDataProp: "Name", subDataTables: { key: true, paramName: "CountyName" } },
+                                { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                                { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                                 { mDataProp: "AreaSqMi" },
                                 { mDataProp: "Population" },
                                 { mDataProp: "WebUrl" }
                             ],
-                        subTable:
+                        nestedDataTable:
                             {
                                 dataSource: "WebService.asmx/GetCities",
                                 columns:
@@ -95,23 +95,23 @@
                     }
             });
 
-            $('#v').subDataTables({
+            $('#v').nestedDataTables({
                 dataSource: getData,
                 columns:
                     [
-                        { mDataProp: "a", subDataTables: { key: true } },
+                        { mDataProp: "a", nestedDataTables: { key: true } },
                         { mDataProp: "b" },
                         { mDataProp: "c" },
                         { mDataProp: "d" }
                     ],
                 rowKeys: ['StateID'],
-                subTable:
+                nestedDataTable:
                     {
                         dataSource: getData,
                         columns:
                             [
-                                { mDataProp: "a", subDataTables: { key: true } },
-                                { mDataProp: "b", subDataTables: { key: true } },
+                                { mDataProp: "a", nestedDataTables: { key: true } },
+                                { mDataProp: "b", nestedDataTables: { key: true } },
                                 { mDataProp: "c" },
                                 { mDataProp: "d" }
                             ]

@@ -1,5 +1,5 @@
 ﻿/**
-Zack's Fiasco subDataTables v1.0.0
+Zack's Fiasco nestedDataTables v1.0.0
 Copyright 2012 Zack Moore, all rights reserved.
 This source file is free software, under either the GPL v2 license or a BSD style license.
 
@@ -25,7 +25,7 @@ Options:
                 be used to query the data for the next lower table. 
 
             paramName: normally when calling the web service to load the next table, 
-                subDataTables will will take the values the key columns of the current row
+                nestedDataTables will will take the values the key columns of the current row
                 and pass them to the web service using the column names as the web
                 service parameter names. Using the paramName property, you can specify
                 a different parameter name for the column value.
@@ -52,25 +52,25 @@ Options:
             POST. It will send the column key values to the web service as JSON and
             it will expect the returned data to come back as JSON data.
 
-    subTable: This property specifies the child table to load when the user clicks the
+    nestedDataTable: This property specifies the child table to load when the user clicks the
         open icon that is the first column of the table. This property is an object
         that recursivly has the same properties as the plugin options, meaning that
-        it has the properties 'columns', 'dataSource', and 'subTable'.
+        it has the properties 'columns', 'dataSource', and 'nestedDataTable'.
 
 CSS Classes:
-    zacksfiasco-subDataTables: top level table
+    zacksfiasco-nestedDataTables: top level table
 
-    zacksfiasco-subDataTables-subtable: each table below the parent table.
+    zacksfiasco-nestedDataTables-nestedTable: each table below the parent table.
 */
 (function ($) {
-    $.widget("zacksfiasco.subDataTables",
+    $.widget("zacksfiasco.nestedDataTables",
     {
         options:
         {
             columns: [],
             dataSource: null,
             dataSourceParams: {},
-            subTable: null
+            nestedDataTable: null
         },
         _create: function () {
             var self = this;
@@ -83,7 +83,7 @@ CSS Classes:
             self._createPrefix();
 
             self.element.addClass('ui-widget');
-            self.element.addClass('zacksfiasco-subDataTables');
+            self.element.addClass('zacksfiasco-nestedDataTables');
 
             var curLevel = self.options;
             var curLevelNum = 0;
@@ -105,8 +105,8 @@ CSS Classes:
                 function setEventHandler(cl)
                 {
                     $('.' + levelCssClass).live('click', function () {
-                        if (cl.subTable !== null && typeof (cl.subTable) !== "undefined") {
-                            self._createDT(cl.subTable, this.parentNode);
+                        if (cl.nestedDataTable !== null && typeof (cl.nestedDataTable) !== "undefined") {
+                            self._createDT(cl.nestedDataTable, this.parentNode);
                         }
                     });
                 }
@@ -114,7 +114,7 @@ CSS Classes:
 
                 curLevel.parentOptions = prevLevel;
                 prevLevel = curLevel;
-                curLevel = curLevel.subTable;
+                curLevel = curLevel.nestedDataTable;
             }
 
             self._createDT(self.options);
@@ -134,7 +134,7 @@ CSS Classes:
                 }
             ];
 
-            if (s.subTable !== null && typeof (s.subTable) !== "undefined") {
+            if (s.nestedDataTable !== null && typeof (s.nestedDataTable) !== "undefined") {
                 combinedCols = combinedCols.concat(s.columns);
             }
             else {
@@ -175,8 +175,8 @@ CSS Classes:
                 var parentRowIndex = $.inArray(parentRow, self.options.openRows);
                 if (parentRowIndex === -1) {
                     // row is not open. open it.
-                    var subTableHtml = "<div><table class='" + tblLevelCssClass + " zacksfiasco-subDataTables-subtable'></table></div>";
-                    var subRow = parentTable.fnOpen(parentRow, subTableHtml, 'details');
+                    var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " zacksfiasco-nestedDataTables-nestedTable'></table></div>";
+                    var subRow = parentTable.fnOpen(parentRow, nestedTableHtml, 'details');
                     
                     if (typeof (subRow) === "undefined") {
                         var mydebug = true;
@@ -216,10 +216,6 @@ CSS Classes:
             return '' + self.options.baseUrl + url;
         },
         _loadData: function (current, dt, parentRow, parentTable) {
-            if (dt == null || dt.length <= 0) {
-                var a = 1;
-            }
-
             function ajaxSuccess (d) {
                 dt.fnAddData(d.d);
             }
@@ -234,7 +230,7 @@ CSS Classes:
                 var colProps = {};
                 for (var i = 0; i < current.parentOptions.columns.length; i++) {
                     if (typeof (current.parentOptions.columns[i]) !== "undefined") {
-                        colProps[current.parentOptions.columns[i].mDataProp] = current.parentOptions.columns[i].subDataTables;
+                        colProps[current.parentOptions.columns[i].mDataProp] = current.parentOptions.columns[i].nestedDataTables;
                     }
                 }
 

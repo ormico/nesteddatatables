@@ -16,6 +16,45 @@ or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
 ## Description:
 Create a series of nested dataTables.
 
+## Example
+
+	$('#myTable').nestedDataTables({
+		dataSource: "WebService.asmx/GetStates",
+		dataTablesOptions:
+		{
+			bJQueryUI: true,
+		},
+		columns:
+			[
+				{ mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
+				{ mDataProp: "StateName" },
+				{ mDataProp: "Population" }
+			],
+		nestedDataTable:
+			{
+				dataSource: "WebService.asmx/GetCounties",
+				columns:
+					[
+						{ mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+						{ mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
+						{ mDataProp: "AreaSqMi" },
+						{ mDataProp: "Population" },
+						{ mDataProp: "WebUrl" }
+					],
+				nestedDataTable:
+					{
+						dataSource: "WebService.asmx/GetCities",
+						columns:
+							[
+								{ mDataProp: "Name" },
+								{ mDataProp: "AreaSqMi" },
+								{ mDataProp: "Population" },
+								{ mDataProp: "WebUrl" }
+							]
+					}
+			}
+	});
+
 ## Options:
 ###    columns: 
 This describes the columns that should populate the dataTable. This parameter is passed directly to dataTable() so it takes the same syntax as the dataTable 
@@ -78,42 +117,3 @@ that recursivly has the same properties as the plugin options, meaning that it h
 ###    nestedDataTables-nestedTable: each table below the parent table.
 
 ###    nestedDataTables-buttonCol: the column in each dataTable that is a button to open the next dataTable
-
-## Example
-
-	$('#myTable').nestedDataTables({
-		dataSource: "WebService.asmx/GetStates",
-		dataTablesOptions:
-		{
-			bJQueryUI: true,
-		},
-		columns:
-			[
-				{ mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
-				{ mDataProp: "StateName" },
-				{ mDataProp: "Population" }
-			],
-		nestedDataTable:
-			{
-				dataSource: "WebService.asmx/GetCounties",
-				columns:
-					[
-						{ mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
-						{ mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
-						{ mDataProp: "AreaSqMi" },
-						{ mDataProp: "Population" },
-						{ mDataProp: "WebUrl" }
-					],
-				nestedDataTable:
-					{
-						dataSource: "WebService.asmx/GetCities",
-						columns:
-							[
-								{ mDataProp: "Name" },
-								{ mDataProp: "AreaSqMi" },
-								{ mDataProp: "Population" },
-								{ mDataProp: "WebUrl" }
-							]
-					}
-			}
-	});

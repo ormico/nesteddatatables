@@ -8,9 +8,17 @@
     <script src="DataTables-1.9.4/jquery.dataTables.js"></script>
     <script src="jquery.nestedDataTables.js"></script>
     <link href="jquery.nestedDataTables.css" rel="stylesheet" />
+    <script src="qunit-1.10.0.js"></script>
+    <link href="qunit-1.10.0.css" rel="stylesheet" />
 </head>
 <body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="jquery.nestedDataTables.test.js"></script>
+
     <script type="text/javascript">
+
+
         function getData(dt, wsParams) {
             var d = [
                 { a: 'alpha', b: 'beta', c: 'gamma', d: 'delta' },
@@ -117,7 +125,18 @@
                             ]
                     }
             });
+
+            //setTimeout(TClick, 1000);
         });
+
+        function TClick() {
+            $('#t td.nestedDataTables-buttonCol')[0].click();
+            setTimeout(T2Click, 1000);
+        }
+
+        function T2Click() {
+            $('#t table.t-tbllevel1 td.nestedDataTables-buttonCol')[0].click();
+        }
     </script>
     <table id="t" style="width:100%"></table>
     <table id="u" style="width:100%"></table>

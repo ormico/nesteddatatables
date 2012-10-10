@@ -139,6 +139,11 @@
                     }
             });
 
+            $('#reload').click(function (e) {
+                e.preventDefault();
+                $('#t').nestedDataTables('reload');
+            });
+
             //setTimeout(TClick, 1000);
         });
 
@@ -151,6 +156,7 @@
             $('#t table.t-tbllevel1 td.nestedDataTables-buttonCol')[0].click();
         }
     </script>
+    <button id="reload">Reload</button>
     <table id="t" style="width:100%"></table>
     <table id="u" style="width:100%"></table>
     <table id="v" style="width:100%"></table>

@@ -224,35 +224,7 @@ https://bitbucket.org/ormico/nesteddatatables
                     else if (current.dataSourceParams !== null && typeof (current.dataSourceParams) !== "undefined") {
                         wsParams = $.extend(wsParams, current.dataSourceParams);
                     }
-                    /*
-                    if (typeof (current.dataSource) === "function") {
-                        current.dataSource(dt, wsParams);
-                    }
-                    else if (typeof (current.dataSource) === "string") {
-                        // dataSource is web service url
-                        $.ajax({
-                            type: 'POST',
-                            url: current.dataSource,
-                            data: JSON.stringify(wsParams),
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            success: ajaxSuccess
-                        });
-                    }
-                    else if (typeof (current.dataSource) === "object") {
-                        // dataSource is ajax options
-                        // if user doesn't provide a success function, add our own (probably most comman usage)
-                        var ajaxOpts;
-                        if (current.dataSource.success === null || typeof (current.dataSource) === "object") {
-                            ajaxOpts = $.extend({}, current.dataSource, { success: ajaxSuccess, data: JSON.stringify(wsParams) });
-                        }
-                        else {
-                            ajaxOpts = $.extend({}, current.dataSource, { data: JSON.stringify(wsParams) });
-                        }
 
-                        $.ajax(ajaxOpts);
-                    }
-                    */
                     if (typeof (current.dataSource) === "function") {
                         current.dataSource(dt, wsParams);
                     }

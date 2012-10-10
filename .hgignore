@@ -1,3 +1,5 @@
 syntax: glob
 subDataTable.v11.suo
 *.suo
+bin
+obj

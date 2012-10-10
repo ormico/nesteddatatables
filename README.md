@@ -121,6 +121,11 @@ Text to display in the button column for closing a nested table. If you turn on 
 This property specifies the child table to load when the user clicks the open icon that is the first column of the table. This property is an object
 that recursivly has the same properties as the plugin options, meaning that it has the properties 'columns', 'dataSource', and 'nestedDataTable'.
 
+## Functions:
+
+### reload:
+Reload the nestedDataTables.
+
 ## CSS Classes:
 ###    nestedDataTables: top level table
 

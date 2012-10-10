@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
 using System.Web.Services;
 
 [WebService(Namespace = "http://tempuri.org/")]
@@ -17,6 +18,13 @@ public class WebService : System.Web.Services.WebService {
 
     [WebMethod]
     public List<State> GetStates() {
+        return State.Get();
+    }
+
+    [WebMethod]
+    [ScriptMethod(UseHttpGet = true)]
+    public List<State> GetStates2()
+    {
         return State.Get();
     }
 

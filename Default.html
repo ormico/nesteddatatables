@@ -36,7 +36,13 @@
 
         $(function () {
             $('#t').nestedDataTables({
-                dataSource: "WebService.asmx/GetStates",
+                dataSource:
+                {
+                    type: 'GET',
+                    url: "WebService.asmx/GetStates2",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                },
                 columns:
                     [
                         { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },

@@ -4,13 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/Content/qunit.css")
+    @Styles.Render("~/Content/smoothness/jquery-ui-1.8.23.custom.css")
+    @Scripts.Render("~/scripts/jquery-1.7.2.js")
+    @Scripts.Render("~/scripts/jquery-ui-1.8.23.custom.min.js")
+    @Scripts.Render("~/scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/scripts/qunit.js")
 </head>
 <body>
     @RenderBody()
-
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

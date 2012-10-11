@@ -63,6 +63,10 @@ https://bitbucket.org/ormico/nesteddatatables
                         }
 
                         // build each level's data
+                        if (curLevel.onAjaxSuccess === null || typeof (curLevel.onAjaxSuccess) === "undefined") {
+                            curLevel.onAjaxSuccess = self.onAjaxSuccess;
+                        }
+
                         curLevel.level = curLevelNum;
                         curLevelNum++;
 
@@ -184,7 +188,10 @@ https://bitbucket.org/ormico/nesteddatatables
                 },
                 _loadData: function (current, dt, parentRow, parentTable) {
                     function ajaxSuccess(d) {
-                        dt.fnAddData(d.d);
+                        //TODO: make sure this works. if the context changes this might not
+                        
+                        //TODO: not every server code sends data as a d member of return object. 
+                        dt.fnAddData(current.onAjaxSuccess(d));
                     }
 
                     // get params to query
@@ -258,6 +265,15 @@ https://bitbucket.org/ormico/nesteddatatables
                         dt.fnClearTable();
                         self._loadData(self.options, dt);
                     }
+                },
+                onAjaxSuccess: function (data) {
+                    var rc = data;
+
+                    if (data.hasOwnProperty("d")) {
+                        rc = d;
+                    }
+
+                    return rc;
                 }
             };
 

@@ -34,6 +34,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
             },
+            afterAjaxSuccess: function() { alert('afterAjaxSuccess'); },
             columns:
                 [
                     { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },

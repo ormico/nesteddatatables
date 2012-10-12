@@ -1,4 +1,4 @@
-﻿nestedDataTables v1.2.1
+﻿nestedDataTables v1.3.1
 =========================
 
 Copyright 2012 Zack Moore, all rights reserved.
@@ -98,6 +98,17 @@ Returns an object whose properties are added to those passed to the data source 
             
 ####            object:
 An object whose properties are added to those passed to the data source query.
+
+###		onAjaxSuccess:
+			This property is a function. When set by the user, this function will be called when the ajax call succeeds and is passed the data 
+			returned by the ajax call. The function should return the data that is to be passed to the datatable. This gives the user the 
+			opportunity to make any changes before passing the data to the datatable.
+
+			The default is a function that passes the data through, unless the data object has a property named 'd'. In that case the 'd' property is returned.
+			This is because certain web service frameworks wrap the returned data in a container object as a security precaution.
+
+###		afterAjaxSuccess:
+			This property is a function. When set by the user, this function will be called after the ajax call succeeds and has finished processing.
 
 ###    dataTablesOptions:
 Optional. Options to pass to dataTables plugin when creating each dataTable. For example, to use jQueryUI set this option to { bJQueryUI: true }

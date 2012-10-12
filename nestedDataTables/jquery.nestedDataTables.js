@@ -1,5 +1,5 @@
 ﻿/**
-nestedDataTables v1.2.1
+nestedDataTables v1.3.1
 Copyright 2012 Zack Moore, all rights reserved.
 This source file is free software, under either the GPL v2 license or a BSD style license.
 
@@ -192,6 +192,10 @@ https://bitbucket.org/ormico/nesteddatatables
                         
                         //TODO: not every server code sends data as a d member of return object. 
                         dt.fnAddData(current.onAjaxSuccess(d));
+
+                        if (typeof (current.afterAjaxSuccess) === "function") {
+                            current.afterAjaxSuccess();
+                        }
                     }
 
                     // get params to query
@@ -270,7 +274,7 @@ https://bitbucket.org/ormico/nesteddatatables
                     var rc = data;
 
                     if (data.hasOwnProperty("d")) {
-                        rc = d;
+                        rc = data.d;
                     }
 
                     return rc;

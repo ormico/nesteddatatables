@@ -1,45 +1,45 @@
 ﻿@{
     ViewBag.Title = "nestedDataTables";
 }
+@Styles.Render("~/Scripts/DataTables-1.9.4/media/css/demo_table.css")
+<h2>Nested Data Tables</h2>
 
-<h2>Index</h2>
-<div id="qunit"></div>
-<div id="qunit-fixture"></div>
-@Styles.Render("~/nestedDataTables/jquery.nestedDataTables.css")
-@Scripts.Render("~/nestedDataTables/jquery.nestedDataTables.js")
-@Scripts.Render("~/nestedDataTables/jquery.nestedDataTables.test.js")
+<h3>Description:</h3>
+<p>
+Create a series of nested dataTables.
+</p>
+<p>
+This plugin wraps the dataTables plugin and makes it possible to open another dataTable 
+based on the data in the parent row. This plugin adds a new column that contains a button
+that when clicked will query for the child table data based on the parent row keys and 
+use that data to create a child dataTable nested within the parent.
+</p>
+
+<h3>Depends on:</h3>
+<ul>
+    <li>jQuery v1.7.2 or higher or jQuery v1.8.2 or higher <a href="http://jquery.com">http://jquery.com</a></li>
+    <li>DataTables v1.9.4 or higher <a href="http://www.datatables.net/">http://www.datatables.net</a></li>
+    <li>jQueryUI v. 1.8.23 or higher (optional) <a href="http://jqueryui.com">http://jqueryui.com</a></li>
+</ul>
+
+<h3>Basic Usage:</h3>
+<p>
+Here is a simple example. You can find more in the Examples section.  You should take a look at
+the jQueryUI examples.
+</p>
+<table id="example1" style="width:100%"></table>
+<style>
+
+</style>
 <script type="text/javascript">
-    function getData(dt, wsParams) {
-        var d = [
-            { a: 'alpha', b: 'beta', c: 'gamma', d: 'delta' },
-            { a: 'alpha2', b: 'beta2', c: 'gamma', d: 'delta' },
-            { a: 'alpha3', b: 'beta3', c: 'gamma', d: 'delta' },
-            { a: 'alpha4', b: 'beta4', c: 'gamma', d: 'delta' },
-            { a: 'alpha5', b: 'beta5', c: 'gamma', d: 'delta' },
-            { a: 'alpha6', b: 'beta6', c: 'gamma', d: 'delta' },
-            { a: 'alpha7', b: 'beta7', c: 'gamma', d: 'delta' },
-            { a: 'alpha8', b: 'beta8', c: 'gamma', d: 'delta' },
-            { a: 'alpha9', b: 'beta9', c: 'gamma', d: 'delta' }
-        ];
-
-        dt.fnAddData(d);
-    }
-
     $(function () {
-        $('#t').nestedDataTables({
-            dataSource:
-            {
-                type: 'GET',
-                url: "@Url.Action("GetStates")",
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-            },
-            afterAjaxSuccess: function() { alert('afterAjaxSuccess'); },
+        $('#example1').nestedDataTables({
+            dataSource: "@Url.Action("GetStates")",
             columns:
                 [
-                    { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
-                    { mDataProp: "StateName" },
-                    { mDataProp: "Population" }
+                    { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateName", sTitle: "State Name" },
+                    { mDataProp: "Population", sTitle: "Population" }
                 ],
             nestedDataTable:
                 {
@@ -47,114 +47,60 @@
                     columns:
                         [
                             { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
-                            { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
-                            { mDataProp: "AreaSqMi" },
-                            { mDataProp: "Population" },
-                            { mDataProp: "WebUrl" }
+                            { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
+                            { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
+                            { mDataProp: "Population", sTitle: "Population" },
+                            { mDataProp: "WebUrl", sTitle: "Web Page" }
                         ],
                     nestedDataTable:
                         {
                             dataSource: "@Url.Action("GetCities")",
                             columns:
                                 [
-                                    { mDataProp: "Name" },
-                                    { mDataProp: "AreaSqMi" },
-                                    { mDataProp: "Population" },
-                                    { mDataProp: "WebUrl" }
+                                    { mDataProp: "Name", sTitle: "City Name" },
+                                    { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
+                                    { mDataProp: "Population", sTitle: "Population" },
+                                    { mDataProp: "WebUrl", sTitle: "Web Page" }
                                 ],
                             nestedDataTable: null
                         }
                 }
         });
-        
-        $('#u').nestedDataTables({
-            dataSource: "@Url.Action("GetStates")",
-            dataTablesOptions:
-            {
-                bPaginate: false,
-                bFilter: false,
-                bLengthChange: false,
-                bInfo: false,
-                bJQueryUI: true,
-                bAutoWidth: false,
-                aaSorting: []
-            },
-            columns:
-                [
-                    { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
-                    { mDataProp: "StateName" },
-                    { mDataProp: "Population" }
-                ],
-            nestedDataTable:
-                {
-                    dataSource: "@Url.Action("GetCounties")",
-                    columns:
-                        [
-                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
-                            { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
-                            { mDataProp: "AreaSqMi" },
-                            { mDataProp: "Population" },
-                            { mDataProp: "WebUrl" }
-                        ],
-                    nestedDataTable:
-                        {
-                            dataSource: "@Url.Action("GetCities")",
-                            columns:
-                                [
-                                    { mDataProp: "Name" },
-                                    { mDataProp: "AreaSqMi" },
-                                    { mDataProp: "Population" },
-                                    { mDataProp: "WebUrl" }
-                                ]
-                        }
-                }
-        });
-
-        $('#v').nestedDataTables({
-            dataSource: getData,
-            dataTablesOptions:
-            {
-                bJQueryUI: true
-            },
-            columns:
-                [
-                    { mDataProp: "a", nestedDataTables: { key: true } },
-                    { mDataProp: "b" },
-                    { mDataProp: "c" },
-                    { mDataProp: "d" }
-                ],
-            rowKeys: ['StateID'],
-            nestedDataTable:
-                {
-                    dataSource: getData,
-                    columns:
-                        [
-                            { mDataProp: "a", nestedDataTables: { key: true } },
-                            { mDataProp: "b", nestedDataTables: { key: true } },
-                            { mDataProp: "c" },
-                            { mDataProp: "d" }
-                        ]
-                }
-        });
-
-        $('#reload').click(function (e) {
-            e.preventDefault();
-            $('#t').nestedDataTables('reload');
-        });
-
-        //setTimeout(TClick, 1000);
     });
-
-    function TClick() {
-        $('#t td.nestedDataTables-buttonCol')[0].click();
-        setTimeout(T2Click, 1000);
-    }
-
-    function T2Click() {
-        $('#t table.t-tbllevel1 td.nestedDataTables-buttonCol')[0].click();
-    }
 </script>
-<button id="reload">Reload</button>
-<table id="t" style="width:100%"></table>
-<table id="u" style="width:100%"></table>
-<table id="v" style="width:100%"></table>
+<h4>Code:</h4>
+<pre>
+$('#example1').nestedDataTables({
+    dataSource: "@Url.Action("GetStates")",
+    columns:
+        [
+            { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+            { mDataProp: "StateName", sTitle: "State Name" },
+            { mDataProp: "Population", sTitle: "Population" }
+        ],
+    nestedDataTable:
+        {
+            dataSource: "@Url.Action("GetCounties")",
+            columns:
+                [
+                    { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
+                    { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
+                    { mDataProp: "Population", sTitle: "Population" },
+                    { mDataProp: "WebUrl", sTitle: "Web Page" }
+                ],
+            nestedDataTable:
+                {
+                    dataSource: "@Url.Action("GetCities")",
+                    columns:
+                        [
+                            { mDataProp: "Name", sTitle: "City Name" },
+                            { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
+                            { mDataProp: "Population", sTitle: "Population" },
+                            { mDataProp: "WebUrl", sTitle: "Web Page" }
+                        ],
+                    nestedDataTable: null
+                }
+        }
+});
+</pre>

@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "Examples";
+}
+
+<h2>Examples</h2>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+@Styles.Render("~/nestedDataTables/jquery.nestedDataTables.css")
+@Scripts.Render("~/nestedDataTables/jquery.nestedDataTables.test.js")
+<script type="text/javascript">
+    function getData(dt, wsParams) {
+        var d = [
+            { a: 'alpha', b: 'beta', c: 'gamma', d: 'delta' },
+            { a: 'alpha2', b: 'beta2', c: 'gamma', d: 'delta' },
+            { a: 'alpha3', b: 'beta3', c: 'gamma', d: 'delta' },
+            { a: 'alpha4', b: 'beta4', c: 'gamma', d: 'delta' },
+            { a: 'alpha5', b: 'beta5', c: 'gamma', d: 'delta' },
+            { a: 'alpha6', b: 'beta6', c: 'gamma', d: 'delta' },
+            { a: 'alpha7', b: 'beta7', c: 'gamma', d: 'delta' },
+            { a: 'alpha8', b: 'beta8', c: 'gamma', d: 'delta' },
+            { a: 'alpha9', b: 'beta9', c: 'gamma', d: 'delta' }
+        ];
+
+        dt.fnAddData(d);
+    }
+    
+    function getLevel1(dt, wsParams) {
+        var d = [
+            { a: 'alpha' },
+            { a: 'alpha2' },
+            { a: 'alpha3' },
+            { a: 'alpha4' },
+            { a: 'alpha5' },
+            { a: 'alpha6' },
+            { a: 'alpha7' },
+            { a: 'alpha8' },
+            { a: 'alpha9' }
+        ];
+
+        dt.fnAddData(d);
+    }
+
+    function getLevel2(dt, wsParams) {
+        var d = [
+            { a: 'alpha', b: 'beta' },
+            { a: 'alpha2', b: 'beta2' },
+            { a: 'alpha3', b: 'beta3' },
+    { a: 'alpha4', b: 'beta4' },
+    { a: 'alpha5', b: 'beta5' },
+    { a: 'alpha6', b: 'beta6' },
+    { a: 'alpha7', b: 'beta7' },
+    { a: 'alpha8', b: 'beta8' },
+    { a: 'alpha9', b: 'beta9' }
+    ];
+
+    dt.fnAddData(d);
+    }
+
+    function getLevel3(dt, wsParams) {
+        var d = [
+            { a: 'alpha', b: 'beta', c: 'gamma' },
+            { a: 'alpha2', b: 'beta2', c: 'gamma' },
+            { a: 'alpha3', b: 'beta3', c: 'gamma' },
+            { a: 'alpha4', b: 'beta4', c: 'gamma' },
+            { a: 'alpha5', b: 'beta5', c: 'gamma' },
+            { a: 'alpha6', b: 'beta6', c: 'gamma' },
+            { a: 'alpha7', b: 'beta7', c: 'gamma' },
+            { a: 'alpha8', b: 'beta8', c: 'gamma' },
+            { a: 'alpha9', b: 'beta9', c: 'gamma' }
+        ];
+
+        dt.fnAddData(d);
+    }
+
+    $(function () {
+        $('#t').nestedDataTables({
+            dataSource:
+            {
+                type: 'GET',
+                url: "@Url.Action("GetStates")",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+            },
+            afterAjaxSuccess: function() { alert('afterAjaxSuccess'); },
+            columns:
+                [
+                    { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateName" },
+                    { mDataProp: "Population" }
+                ],
+            nestedDataTable:
+                {
+                    dataSource: "@Url.Action("GetCounties")",
+                    columns:
+                        [
+                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                            { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
+                            { mDataProp: "AreaSqMi" },
+                            { mDataProp: "Population" },
+                            { mDataProp: "WebUrl" }
+                        ],
+                    nestedDataTable:
+                        {
+                            dataSource: "@Url.Action("GetCities")",
+                            columns:
+                                [
+                                    { mDataProp: "Name" },
+                                    { mDataProp: "AreaSqMi" },
+                                    { mDataProp: "Population" },
+                                    { mDataProp: "WebUrl" }
+                                ],
+                            nestedDataTable: null
+                        }
+                }
+        });
+        
+        $('#u').nestedDataTables({
+            dataSource: "@Url.Action("GetStates")",
+            dataTablesOptions:
+            {
+                bPaginate: false,
+                bFilter: false,
+                bLengthChange: false,
+                bInfo: false,
+                bJQueryUI: true,
+                bAutoWidth: false,
+                aaSorting: []
+            },
+            columns:
+                [
+                    { mDataProp: "StateID", nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateName" },
+                    { mDataProp: "Population" }
+                ],
+            nestedDataTable:
+                {
+                    dataSource: "@Url.Action("GetCounties")",
+                    columns:
+                        [
+                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                            { mDataProp: "Name", nestedDataTables: { key: true, paramName: "CountyName" } },
+                            { mDataProp: "AreaSqMi" },
+                            { mDataProp: "Population" },
+                            { mDataProp: "WebUrl" }
+                        ],
+                    nestedDataTable:
+                        {
+                            dataSource: "@Url.Action("GetCities")",
+                            columns:
+                                [
+                                    { mDataProp: "Name" },
+                                    { mDataProp: "AreaSqMi" },
+                                    { mDataProp: "Population" },
+                                    { mDataProp: "WebUrl" }
+                                ]
+                        }
+                }
+        });
+
+        $('#v').nestedDataTables({
+            dataSource: getData,
+            dataTablesOptions:
+            {
+                bJQueryUI: true
+            },
+            columns:
+                [
+                    { mDataProp: "a", nestedDataTables: { key: true } },
+                    { mDataProp: "b" },
+                    { mDataProp: "c" },
+                    { mDataProp: "d" }
+                ],
+            rowKeys: ['StateID'],
+            nestedDataTable:
+                {
+                    dataSource: getData,
+                    columns:
+                        [
+                            { mDataProp: "a", nestedDataTables: { key: true } },
+                            { mDataProp: "b", nestedDataTables: { key: true } },
+                            { mDataProp: "c" },
+                            { mDataProp: "d" }
+                        ]
+                }
+        });
+
+        $('#reload').click(function (e) {
+            e.preventDefault();
+            $('#t').nestedDataTables('reload');
+        });
+
+        //setTimeout(TClick, 1000);
+    });
+
+    function TClick() {
+        $('#t td.nestedDataTables-buttonCol')[0].click();
+        setTimeout(T2Click, 1000);
+    }
+
+    function T2Click() {
+        $('#t table.t-tbllevel1 td.nestedDataTables-buttonCol')[0].click();
+    }
+</script>
+<button id="reload">Reload</button>
+<table id="t" style="width:100%"></table>
+<table id="u" style="width:100%"></table>
+<table id="v" style="width:100%"></table>

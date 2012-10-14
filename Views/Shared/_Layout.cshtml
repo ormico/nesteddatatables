@@ -4,16 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/Site.css")
-    @Styles.Render("~/Content/qunit.css")
-    @Styles.Render("~/Content/smoothness/jquery-ui-1.8.23.custom.css")
-    @Scripts.Render("~/scripts/jquery-1.7.2.js")
-    @Scripts.Render("~/scripts/jquery-ui-1.8.23.custom.min.js")
-    @Scripts.Render("~/scripts/DataTables/jquery.dataTables.js")
-    @Scripts.Render("~/scripts/qunit.js")
+    @Styles.Render("~/Content/Site.css",
+            "~/Content/smoothness/jquery-ui-1.8.23.custom.css",
+            "~/nestedDataTables/jquery.nestedDataTables.css")
+    @Scripts.Render("~/scripts/jquery-1.7.2.js",
+            "~/scripts/jquery-ui-1.8.23.custom.min.js",
+            "~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js",
+            "~/nestedDataTables/jquery.nestedDataTables.js")
 </head>
 <body>
+    <nav>
+        <ul>
+            <li>@Html.ActionLink("Home", "Index")</li>
+            <li>@Html.ActionLink("Examples", "Index", "Examples")</li>
+            <li>@Html.ActionLink("Examples", "Index", "Examples")</li>
+            <li>@Html.ActionLink("Examples", "Index", "Examples")</li>
+            <li>@Html.ActionLink("Examples", "Index", "Examples")</li>
+        </ul>
+        <div style="clear:left;"></div>
+    </nav>
     @RenderBody()
     @RenderSection("scripts", required: false)
+
+    <footer>
+        <p>
+        Copyright 2012 Zack Moore, all rights reserved. This source file is free software, under either the GPL v2 license or a BSD style license.
+        </p>
+        <p>
+        This source file is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
+        </p>
+    </footer>
 </body>
 </html>

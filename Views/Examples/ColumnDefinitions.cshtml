@@ -1,38 +1,30 @@
 ﻿@{
-    ViewBag.Title = "nestedDataTables";
+    ViewBag.Title = "ColumnDefinitions";
 }
 @Styles.Render("~/Scripts/DataTables-1.9.4/media/css/demo_table.css")
-<h2>Nested Data Tables</h2>
-
-<h3>Description:</h3>
+<h2>ColumnDefinitions</h2>
 <p>
-Create a series of nested dataTables.
+The plugin takes an options object that tells it what to display.
 </p>
 <p>
-This plugin wraps the dataTables plugin and makes it possible to open another dataTable 
-based on the data in the parent row. This plugin adds a new column that contains a button
-that when clicked will query for the child table data based on the parent row keys and 
-use that data to create a child dataTable nested within the parent.
+The <code>columns</code> property describes what columns to display. The syntax is the same as the the <a href="http://www.datatables.net/usage/columns">dataTables aoColumns option</a>.
 </p>
-
-<h3>Depends on:</h3>
+<p>
+There is one addition to the dataTables <code>aoColumns</code> syntax. In order to tell the plugin what data to load for the nestedDataTable, specify the <code>nestedDataTables</code>
+property on the column definition. The <code>nestedDataTables</code> property is an object with two properties. 
+</p>
 <ul>
-    <li>jQuery v1.7.2 or higher or jQuery v1.8.2 or higher <a href="http://jquery.com">http://jquery.com</a></li>
-    <li>DataTables v1.9.4 or higher <a href="http://www.datatables.net/">http://www.datatables.net</a></li>
-    <li>jQueryUI v. 1.8.23 or higher (optional) <a href="http://jqueryui.com">http://jqueryui.com</a></li>
+    <li>
+        key: This boolean property indicates whether the value of this column should be passed to the query that is used to load the nested table. If this column is not a key column, it isn't
+            necessary to set this property to <code>false</code>. Instead, its better to not specify the nestedDataTables property at all.
+    </li>
+    <li>
+        paramName: If a column is a key, then its value is passed to the query using the mDataProp value as the query parameter name. If however, the query requires the parameter to have a
+            different name then you can specify the paramName property. Take a look at the <code>County Name</code> column in the example below. The web service takes a parameter named
+            <code>CountyName</code>, but the <code>mDataProp</code> value is &quot;Name&quot;. Setting the <code>paramName</code> property to &quot;CountyName&quot; will map the value onto that
+            parameter in the web service.
+    </li>
 </ul>
-
-<h3>Basic Usage:</h3>
-<p>
-Here is a simple example. You can find more in the Examples section.  You should take a look at
-the jQueryUI examples.
-</p>
-<p>
-Clicking the button on the first column will open the nested table.
-</p>
-<p>
-All data used in these examples is for demo purposes only.
-</p>
 <table id="example1" style="width:100%"></table>
 <script type="text/javascript">
     $(function () {
@@ -40,7 +32,7 @@ All data used in these examples is for demo purposes only.
             dataSource: "@Url.Action("GetStates")",
             columns:
                 [
-                    { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true } },
                     { mDataProp: "StateName", sTitle: "State Name" },
                     { mDataProp: "Population", sTitle: "Population" }
                 ],
@@ -49,7 +41,7 @@ All data used in these examples is for demo purposes only.
                     dataSource: "@Url.Action("GetCounties")",
                     columns:
                         [
-                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true } },
                             { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                             { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
                             { mDataProp: "Population", sTitle: "Population" },
@@ -77,7 +69,7 @@ $('#example1').nestedDataTables({
     dataSource: "@Url.Action("GetStates")",
     columns:
         [
-            { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+            { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true } },
             { mDataProp: "StateName", sTitle: "State Name" },
             { mDataProp: "Population", sTitle: "Population" }
         ],
@@ -86,7 +78,7 @@ $('#example1').nestedDataTables({
             dataSource: "@Url.Action("GetCounties")",
             columns:
                 [
-                    { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true } },
                     { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                     { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
                     { mDataProp: "Population", sTitle: "Population" },

@@ -191,7 +191,8 @@ https://bitbucket.org/ormico/nesteddatatables
                         //TODO: make sure this works. if the context changes this might not
                         
                         //TODO: not every server code sends data as a d member of return object. 
-                        dt.fnAddData(current.onAjaxSuccess(d));
+                        var d2 = current.onAjaxSuccess(d);
+                        dt.fnAddData(d2);
 
                         if (typeof (current.afterAjaxSuccess) === "function") {
                             current.afterAjaxSuccess();
@@ -243,7 +244,6 @@ https://bitbucket.org/ormico/nesteddatatables
                         var ajaxOptions =
                             {
                                 type: 'POST',
-                                data: JSON.stringify(wsParams),
                                 contentType: 'application/json; charset=utf-8',
                                 dataType: 'json',
                                 success: ajaxSuccess
@@ -256,6 +256,14 @@ https://bitbucket.org/ormico/nesteddatatables
                         else if (typeof (current.dataSource) === "object") {
                             // dataSource is ajax options
                             ajaxOptions = $.extend(ajaxOptions, current.dataSource);
+                        }
+
+                        // if we are doing a POST then stringify the parameters. Otherwise, just set the parameter property
+                        if (ajaxOptions.type === "POST") {
+                            ajaxOptions = $.extend(ajaxOptions, { data: JSON.stringify(wsParams) });
+                        }
+                        else {
+                            ajaxOptions = $.extend(ajaxOptions, { data: wsParams });
                         }
 
                         $.ajax(ajaxOptions);

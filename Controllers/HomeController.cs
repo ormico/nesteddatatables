@@ -14,37 +14,9 @@ namespace nestedDataTables.Web.Controllers
             return View();
         }
 
-        public ActionResult GetStates()
+        public ActionResult Documentation()
         {
-            return Json(State.Get(), JsonRequestBehavior.AllowGet);
+            return View();
         }
-
-        public ActionResult GetCounties(string StateID)
-        {
-            return Json
-            (
-                (
-                from s in State.Get()
-                from c in s.Counties
-                where s.StateID == StateID
-                select new CountyModel(s.StateID, c)
-                ).ToList()
-            );
-        }
-
-        public ActionResult GetCities(string StateID, string CountyName)
-        {
-            return Json
-            (
-                (
-                    from s in State.Get()
-                    from c in s.Counties
-                    from cty in c.Cities
-                    where s.StateID == StateID && c.Name == CountyName
-                    select new CityModel(s.StateID, c.Name, cty)
-                ).ToList()
-            );
-        }
-
     }
 }

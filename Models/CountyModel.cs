@@ -7,6 +7,10 @@ namespace nestedDataTables.Web
 {
     public class CountyModel
     {
+        public CountyModel()
+        {
+        }
+
         public CountyModel(string StateID, County County)
         {
             this.StateID = StateID;

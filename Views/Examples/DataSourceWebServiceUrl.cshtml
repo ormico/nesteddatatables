@@ -1,38 +1,26 @@
 ﻿@{
-    ViewBag.Title = "nestedDataTables";
+    ViewBag.Title = "dataSource - Web Service Url";
 }
 @Styles.Render("~/Scripts/DataTables-1.9.4/media/css/demo_table.css")
-<h2>Nested Data Tables</h2>
+<h2>dataSource - Web Service Url</h2>
+<p>
+In the example below the dataSource property on each level is the url of the web service from which to load data for that level. Using this
+method calls the web service using the plugin's default ajax opitons.
+</p>
+<h3>Default Ajax Options</h3>
+<p>
+Web service calls are made using jQuery's ajax function with the following options.
+</p>
+<pre>
+$.ajax({
+    type: 'POST',
+    data: ...,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: ...
+});
+</pre>
 
-<h3>Description:</h3>
-<p>
-Create a series of nested dataTables.
-</p>
-<p>
-This plugin wraps the dataTables plugin and makes it possible to open another dataTable 
-based on the data in the parent row. This plugin adds a new column that contains a button
-that when clicked will query for the child table data based on the parent row keys and 
-use that data to create a child dataTable nested within the parent.
-</p>
-
-<h3>Depends on:</h3>
-<ul>
-    <li>jQuery v1.7.2 or higher or jQuery v1.8.2 or higher <a href="http://jquery.com">http://jquery.com</a></li>
-    <li>DataTables v1.9.4 or higher <a href="http://www.datatables.net/">http://www.datatables.net</a></li>
-    <li>jQueryUI v. 1.8.23 or higher (optional) <a href="http://jqueryui.com">http://jqueryui.com</a></li>
-</ul>
-
-<h3>Basic Usage:</h3>
-<p>
-Here is a simple example. You can find more in the Examples section.  You should take a look at
-the jQueryUI examples.
-</p>
-<p>
-Clicking the button on the first column will open the nested table.
-</p>
-<p>
-All data used in these examples is for demo purposes only.
-</p>
 <table id="example1" style="width:100%"></table>
 <script type="text/javascript">
     $(function () {
@@ -40,7 +28,7 @@ All data used in these examples is for demo purposes only.
             dataSource: "@Url.Action("GetStates")",
             columns:
                 [
-                    { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true } },
                     { mDataProp: "StateName", sTitle: "State Name" },
                     { mDataProp: "Population", sTitle: "Population" }
                 ],
@@ -49,7 +37,7 @@ All data used in these examples is for demo purposes only.
                     dataSource: "@Url.Action("GetCounties")",
                     columns:
                         [
-                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                            { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true } },
                             { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                             { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
                             { mDataProp: "Population", sTitle: "Population" },
@@ -77,7 +65,7 @@ $('#example1').nestedDataTables({
     dataSource: "@Url.Action("GetStates")",
     columns:
         [
-            { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true, paramName: "StateID" } },
+            { mDataProp: "StateID", sTitle: "State", nestedDataTables: { key: true } },
             { mDataProp: "StateName", sTitle: "State Name" },
             { mDataProp: "Population", sTitle: "Population" }
         ],
@@ -86,7 +74,7 @@ $('#example1').nestedDataTables({
             dataSource: "@Url.Action("GetCounties")",
             columns:
                 [
-                    { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true, paramName: "StateID" } },
+                    { mDataProp: "StateID", bVisible: false, nestedDataTables: { key: true } },
                     { mDataProp: "Name", sTitle: "County Name", nestedDataTables: { key: true, paramName: "CountyName" } },
                     { mDataProp: "AreaSqMi", sTitle: "Area Sq/Mi" },
                     { mDataProp: "Population", sTitle: "Population" },

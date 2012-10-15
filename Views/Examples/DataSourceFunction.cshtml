@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "DataSource - Function";
+}
+@Styles.Render("~/Scripts/DataTables-1.9.4/media/css/demo_table.css")
+<h2>DataSource - Function</h2>
+<p>
+<code>dataSource</code> can also be defined as a function. When defined this way, the function takes two parameters. The first parameter is the 
+current dataTable. The second parameter is an object containing the current query parameters. The function must call fnAddData() to 
+add the data to the current dataTable.
+</p>
+<p>
+In this example, these parameters are always called <code>dt</code> and <code>wsParams</code>.
+</p>
+<table id="example1" style="width: 100%"></table>
+<pre>
+function getLevel1(dt, wsParams) {
+    var d = [
+        { a: 'alpha' },
+        { a: 'alpha2' },
+        { a: 'alpha3' },
+        { a: 'alpha4' },
+        { a: 'alpha5' },
+        { a: 'alpha6' },
+        { a: 'alpha7' },
+        { a: 'alpha8' },
+        { a: 'alpha9' }
+    ];
+
+    dt.fnAddData(d);
+}
+
+function getLevel2(dt, wsParams) {
+    var d = [
+        { a: 'alpha', b: 'beta' },
+        { a: 'alpha2', b: 'beta2' },
+        { a: 'alpha3', b: 'beta3' },
+        { a: 'alpha4', b: 'beta4' },
+        { a: 'alpha5', b: 'beta5' },
+        { a: 'alpha6', b: 'beta6' },
+        { a: 'alpha7', b: 'beta7' },
+        { a: 'alpha8', b: 'beta8' },
+        { a: 'alpha9', b: 'beta9' }
+    ];
+
+    var rc = [];
+    $.each(d, function (i, v) {
+        if (v.a === wsParams.a) {
+            rc.push(v);
+        }
+    });
+
+    dt.fnAddData(rc);
+}
+
+function getLevel3(dt, wsParams) {
+    var d = [
+        { a: 'alpha', b: 'beta', c: 'gamma' },
+        { a: 'alpha2', b: 'beta2', c: 'gamma' },
+        { a: 'alpha3', b: 'beta3', c: 'gamma' },
+        { a: 'alpha4', b: 'beta4', c: 'gamma' },
+        { a: 'alpha5', b: 'beta5', c: 'gamma' },
+        { a: 'alpha6', b: 'beta6', c: 'gamma' },
+        { a: 'alpha7', b: 'beta7', c: 'gamma' },
+        { a: 'alpha8', b: 'beta8', c: 'gamma' },
+        { a: 'alpha9', b: 'beta9', c: 'gamma' }
+    ];
+
+    var rc = [];
+    $.each(d, function (i, v) {
+        if (v.a === wsParams.a && v.b === wsParams.b) {
+            rc.push(v);
+        }
+    });
+
+    dt.fnAddData(d);
+}
+
+$(function () {
+    $('#example1').nestedDataTables({
+        dataSource: getLevel1,
+        columns:
+            [
+                { mDataProp: "a", nestedDataTables: { key: true } }
+            ],
+        nestedDataTable:
+            {
+                dataSource: getLevel2,
+                columns:
+                    [
+                        { mDataProp: "a", bVisible: false, nestedDataTables: { key: true } },
+                        { mDataProp: "b", nestedDataTables: { key: true } }
+                    ],
+                nestedDataTable:
+                    {
+                        dataSource: getLevel3,
+                        columns:
+                            [
+                                { mDataProp: "a", bVisible: false, nestedDataTables: { key: true } },
+                                { mDataProp: "b", bVisible: false, nestedDataTables: { key: true } },
+                                { mDataProp: "c" }
+                            ]
+                    }
+            }
+    });
+});
+</pre>
+<script type="text/javascript">
+    function getLevel1(dt, wsParams) {
+        var d = [
+            { a: 'alpha' },
+            { a: 'alpha2' },
+            { a: 'alpha3' },
+            { a: 'alpha4' },
+            { a: 'alpha5' },
+            { a: 'alpha6' },
+            { a: 'alpha7' },
+            { a: 'alpha8' },
+            { a: 'alpha9' }
+        ];
+
+        dt.fnAddData(d);
+    }
+
+    function getLevel2(dt, wsParams) {
+        var d = [
+            { a: 'alpha', b: 'beta' },
+            { a: 'alpha2', b: 'beta2' },
+            { a: 'alpha3', b: 'beta3' },
+            { a: 'alpha4', b: 'beta4' },
+            { a: 'alpha5', b: 'beta5' },
+            { a: 'alpha6', b: 'beta6' },
+            { a: 'alpha7', b: 'beta7' },
+            { a: 'alpha8', b: 'beta8' },
+            { a: 'alpha9', b: 'beta9' }
+        ];
+
+        var rc = [];
+        $.each(d, function (i, v) {
+            if (v.a === wsParams.a) {
+                rc.push(v);
+            }
+        });
+
+        dt.fnAddData(rc);
+    }
+
+    function getLevel3(dt, wsParams) {
+        var d = [
+            { a: 'alpha', b: 'beta', c: 'gamma' },
+            { a: 'alpha2', b: 'beta2', c: 'gamma' },
+            { a: 'alpha3', b: 'beta3', c: 'gamma' },
+            { a: 'alpha4', b: 'beta4', c: 'gamma' },
+            { a: 'alpha5', b: 'beta5', c: 'gamma' },
+            { a: 'alpha6', b: 'beta6', c: 'gamma' },
+            { a: 'alpha7', b: 'beta7', c: 'gamma' },
+            { a: 'alpha8', b: 'beta8', c: 'gamma' },
+            { a: 'alpha9', b: 'beta9', c: 'gamma' }
+        ];
+
+        var rc = [];
+        $.each(d, function (i, v) {
+            if (v.a === wsParams.a && v.b === wsParams.b) {
+                rc.push(v);
+            }
+        });
+
+        dt.fnAddData(d);
+    }
+
+    $(function () {
+        $('#example1').nestedDataTables({
+            dataSource: getLevel1,
+            columns:
+                [
+                    { mDataProp: "a", nestedDataTables: { key: true } }
+                ],
+            nestedDataTable:
+                {
+                    dataSource: getLevel2,
+                    columns:
+                        [
+                            { mDataProp: "a", bVisible: false, nestedDataTables: { key: true } },
+                            { mDataProp: "b", nestedDataTables: { key: true } }
+                        ],
+                    nestedDataTable:
+                        {
+                            dataSource: getLevel3,
+                            columns:
+                                [
+                                    { mDataProp: "a", bVisible: false, nestedDataTables: { key: true } },
+                                    { mDataProp: "b", bVisible: false, nestedDataTables: { key: true } },
+                                    { mDataProp: "c" }
+                                ]
+                        }
+                }
+        });
+    });
+</script>

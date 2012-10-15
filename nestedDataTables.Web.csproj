@@ -45,6 +45,12 @@
       <HintPath>packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>packages\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib">
+      <HintPath>packages\MvcContrib.2.0.95.0\lib\MvcContrib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -901,11 +907,6 @@
     <Content Include="Scripts\DataTables-1.9.4\media\unit_testing\tests_onhold\6_delayed_rendering\_zero_config.js" />
     <Content Include="Scripts\DataTables-1.9.4\media\unit_testing\unit_test.js" />
     <Content Include="Scripts\DataTables-1.9.4\Readme.txt" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
-    <Content Include="Scripts\DataTables\license-bsd.txt" />
-    <Content Include="Scripts\DataTables\license-gpl2.txt" />
-    <Content Include="Scripts\DataTables\Readme.txt" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.custom.min.js" />
@@ -991,6 +992,24 @@
     <Content Include="Scripts\DataTables-1.9.4\scripts\jshint.config" />
     <Content Include="Scripts\DataTables-1.9.4\scripts\make.sh" />
     <Content Include="Scripts\DataTables-1.9.4\scripts\unit_tests.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examples\BasicAjax.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examples\ColumnDefinitions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examples\DataSourceWebServiceUrl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examples\DataSourceAjaxOptions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Examples\DataSourceFunction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Documentation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

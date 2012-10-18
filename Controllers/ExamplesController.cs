@@ -34,6 +34,10 @@ namespace nestedDataTables.Web.Controllers
             return View();
         }
 
+        public ActionResult AfterAjaxSuccess()
+        {
+            return View();
+        }
 
         public ActionResult BasicAjax()
         {

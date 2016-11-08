@@ -1,6 +1,6 @@
 ﻿/**
-nestedDataTables v1.3.1
-Copyright 2012 Zack Moore, all rights reserved.
+nestedDataTables v1.4.0
+Copyright 2016 Zack Moore, all rights reserved.
 This source file is free software, under either the GPL v2 license or a BSD style license.
 
 This source file is distributed in the hope that it will be useful, but 
@@ -16,6 +16,14 @@ https://bitbucket.org/ormico/nesteddatatables
         if (typeof (options) === "string") {
             // if options is a string then call the public function that matches the string value
             methods = this.data("nestedDataTables");
+
+            if (options === "isNestedDataTables")
+            {
+                if (typeof methods == "undefined")
+                    return false;
+                else
+                    return true;
+            }
 
             // use the proxy method to call the public function as if it were a member of the methods object
             $.proxy(methods.fn[options], methods)();
@@ -74,7 +82,13 @@ https://bitbucket.org/ormico/nesteddatatables
 
                         // create a function so that even handler can reference current values of curLevel
                         function setEventHandler(cl) {
-                            $('td.' + levelCssClass).live('click', function () {
+                            /*$('td.' + levelCssClass).on('click', function () {
+                                if (cl.nestedDataTable !== null && typeof (cl.nestedDataTable) !== "undefined") {
+                                    self._createDT(cl.nestedDataTable, this.parentNode);
+                                }
+                            });*/
+
+                            $(document).on('click', 'td.' + levelCssClass, function () {
                                 if (cl.nestedDataTable !== null && typeof (cl.nestedDataTable) !== "undefined") {
                                     self._createDT(cl.nestedDataTable, this.parentNode);
                                 }
@@ -191,8 +205,7 @@ https://bitbucket.org/ormico/nesteddatatables
                         //TODO: make sure this works. if the context changes this might not
                         
                         //TODO: not every server code sends data as a d member of return object. 
-                        var d2 = current.onAjaxSuccess(d);
-                        dt.fnAddData(d2);
+                        dt.fnAddData(current.onAjaxSuccess(d));
 
                         if (typeof (current.afterAjaxSuccess) === "function") {
                             current.afterAjaxSuccess();
@@ -244,6 +257,7 @@ https://bitbucket.org/ormico/nesteddatatables
                         var ajaxOptions =
                             {
                                 type: 'POST',
+                                data: JSON.stringify(wsParams),
                                 contentType: 'application/json; charset=utf-8',
                                 dataType: 'json',
                                 success: ajaxSuccess
@@ -258,14 +272,6 @@ https://bitbucket.org/ormico/nesteddatatables
                             ajaxOptions = $.extend(ajaxOptions, current.dataSource);
                         }
 
-                        // if we are doing a POST then stringify the parameters. Otherwise, just set the parameter property
-                        if (ajaxOptions.type === "POST") {
-                            ajaxOptions = $.extend(ajaxOptions, { data: JSON.stringify(wsParams) });
-                        }
-                        else {
-                            ajaxOptions = $.extend(ajaxOptions, { data: wsParams });
-                        }
-
                         $.ajax(ajaxOptions);
                     }
                 },
@@ -276,6 +282,20 @@ https://bitbucket.org/ormico/nesteddatatables
                         var dt = self.element.dataTable();
                         dt.fnClearTable();
                         self._loadData(self.options, dt);
+                    },
+                    destroy: function()
+                    {
+                        var self = this;
+                        try
+                        {
+                            var dt = self.element.dataTable();
+                            dt.fnDestroy();
+                            self.element.empty().removeData("nestedDataTables");
+                        }
+                        catch (e)
+                        {
+                            console.log(e);
+                        }
                     }
                 },
                 onAjaxSuccess: function (data) {

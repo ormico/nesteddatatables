@@ -1,6 +1,9 @@
 syntax: glob
-subDataTable.v11.suo
 *.suo
-bin
-obj
 *.user
+NestedDataTables/bower_components/*
+NestedDataTables/dist/*
+NestedDataTables/node_modules/*
+.vs/*
+NestedDataTables/bin/*
+NestedDataTables/obj/*

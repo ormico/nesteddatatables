@@ -7,3 +7,4 @@ NestedDataTables/node_modules/*
 .vs/*
 NestedDataTables/bin/*
 NestedDataTables/obj/*
+packages/*

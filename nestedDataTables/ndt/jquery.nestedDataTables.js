@@ -272,6 +272,10 @@ https://bitbucket.org/ormico/nesteddatatables
                             ajaxOptions = $.extend(ajaxOptions, current.dataSource);
                         }
 
+                        if (typeof current.dataSourceModify === "function") {
+                            current.dataSourceModify(ajaxOptions, wsParams);
+                        }
+
                         $.ajax(ajaxOptions);
                     }
                 },

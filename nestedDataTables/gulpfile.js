@@ -14,14 +14,22 @@ var gulp = require('gulp'),
 gulp.task('default', ['app-js', 'app-css']);
 
 // Task: app-css
-gulp.task('app-css', ['app-sass'], function (done) {
+gulp.task('app-css', ['app-sass','copy-bsfonts'], function (done) {
     return gulp.src([
             './bower_components/bootstrap/dist/css/bootstrap.css',
+            './bower_components/datatables.net-bs/css/dataTables.bootstrap.css',
             './Content/**/*.css'
     ])
       .pipe(cssnano())
       .pipe(concat('all.css').on('error', sass.logError))
       .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('copy-bsfonts', function (done) {
+    return gulp.src([
+            './bower_components/bootstrap/fonts/*'
+    ])
+    .pipe(gulp.dest('./fonts/'));
 });
 
 // Task: app-sass
@@ -43,7 +51,9 @@ gulp.task('app-sass', function (done) {
 gulp.task('app-js', function () {
     return gulp.src([
             './bower_components/jquery/dist/jquery.js',
-            './bower_components/bootstrap/dist/js/bootstrap.js'
+            './bower_components/bootstrap/dist/js/bootstrap.js',
+            './bower_components/datatables.net/js/jquery.dataTables.js',
+            './bower_components/datatables.net-bs/js/dataTables.bootstrap.js',
     ])
       .pipe(sourcemaps.init())
       .pipe(uglify({ preserveComments: 'license' }))

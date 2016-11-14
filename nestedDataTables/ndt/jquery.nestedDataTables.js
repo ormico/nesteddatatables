@@ -186,7 +186,7 @@ https://bitbucket.org/ormico/nesteddatatables
                     var self = this;
                     // if element has an id, then use that for prefix
                     var id = self.element.attr('id');
-                    if (id == null) {
+                    if (id === null) {
                         id = self.widgetBaseClass + parseInt(Math.random() * 10000);
                     }
 
@@ -220,14 +220,15 @@ https://bitbucket.org/ormico/nesteddatatables
                         rowData = parentTable.fnGetData(parentRow);
 
                         var colProps = {};
-                        for (var i = 0; i < current.parentOptions.columns.length; i++) {
+                        var i = 0;
+                        for (i = 0; i < current.parentOptions.columns.length; i++) {
                             if (typeof (current.parentOptions.columns[i]) !== "undefined") {
                                 colProps[current.parentOptions.columns[i].mDataProp] = current.parentOptions.columns[i].nestedDataTables;
                             }
                         }
 
                         var cols = parentTable.fnSettings().aoColumns;
-                        for (var i = 0; i < cols.length; i++) {
+                        for (i = 0; i < cols.length; i++) {
                             // if table col is a key
                             var prop = colProps[cols[i].mDataProp];
                             if (prop !== null && typeof (prop) !== "undefined" && prop.key === true) {

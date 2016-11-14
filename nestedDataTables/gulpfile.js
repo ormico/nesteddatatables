@@ -5,13 +5,20 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    jshint = require('gulp-jshint');
 
 // Task: default
 // create default task that depends on task app-css
 // if you run task default it will cause the dependent
 // tasks to run first
-gulp.task('default', ['app-js', 'app-css']);
+gulp.task('default', ['app-js', 'app-css', 'app-jshint']);
+
+gulp.task('app-jshint', function (done) {
+    return gulp.src(['./ndt/jquery.nestedDataTables.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
 
 // Task: app-css
 gulp.task('app-css', ['app-sass','copy-bsfonts'], function (done) {

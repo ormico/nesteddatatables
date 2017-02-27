@@ -1,13 +1,8 @@
-﻿/**
-nestedDataTables v1.4.0
-Copyright 2016 Zack Moore, all rights reserved.
-This source file is free software, under either the GPL v2 license or a BSD style license.
-
-This source file is distributed in the hope that it will be useful, but 
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
-
-https://bitbucket.org/ormico/nesteddatatables
+﻿/*!
+ nestedDataTables v1.4.1
+ Copyright 2017 Zack Moore, all rights reserved.
+ Licensed under The MIT License. See license.txt
+ https://bitbucket.org/ormico/nesteddatatables
 */
 (function ($) {
     $.fn.nestedDataTables = function (options) {
@@ -203,9 +198,11 @@ https://bitbucket.org/ormico/nesteddatatables
                 _loadData: function (current, dt, parentRow, parentTable) {
                     function ajaxSuccess(d) {
                         //TODO: make sure this works. if the context changes this might not
-                        
                         //TODO: not every server code sends data as a d member of return object. 
-                        dt.fnAddData(current.onAjaxSuccess(d));
+                        var data = current.onAjaxSuccess(d);
+                        if (data !== null && data.length > 0) {
+                            dt.fnAddData(data);
+                        }
 
                         if (typeof (current.afterAjaxSuccess) === "function") {
                             current.afterAjaxSuccess();

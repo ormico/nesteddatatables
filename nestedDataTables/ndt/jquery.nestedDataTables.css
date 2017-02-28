@@ -1,12 +1,14 @@
-﻿.nestedDataTables
+﻿/*
+.nestedDataTables
 {
 
 }
+*/
 
 .nestedDataTables-nestedTable
 {
-	width:98%;
-	margin-left:2%;
+    width:98%;
+    margin-left:2%;
 }
 
 .nestedDataTables-buttonCol

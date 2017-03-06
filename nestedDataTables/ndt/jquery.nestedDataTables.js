@@ -157,7 +157,12 @@
                             // row is not open. open it.
                             $parentRow.text(self.options.closeButtonText);
 
-                            var nestedTableHtml = "<div><table class='" + tblLevelCssClass + " nestedDataTables-nestedTable'></table></div>";
+                            var tableClass = tblLevelCssClass + " nestedDataTables-nestedTable";
+                            if (self.options.nestedTableClass !== null) {
+                                tableClass = tableClass + " " + self.options.nestedTableClass;
+                            }
+
+                            var nestedTableHtml = "<div><table class='" + tableClass + "'></table></div>";
                             var subRow = parentTable.fnOpen(parentRow, nestedTableHtml, 'details');
                             var newTable = $(subRow).find("table");
                             newDt = newTable.dataTable(dto);
@@ -321,6 +326,7 @@
                 openButtonText: '[+]',
                 closeButtonClass: '',
                 closeButtonText: '[-]',
+                nestedTableClass: null,
                 nestedDataTable: null
             };
             methods.options = $.extend({}, optionsDefaults, options);

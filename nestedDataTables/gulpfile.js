@@ -63,7 +63,7 @@ gulp.task('app-js', function () {
             './bower_components/datatables.net-bs/js/dataTables.bootstrap.js'
     ])
       .pipe(sourcemaps.init())
-      .pipe(uglify({ preserveComments: 'license' }))
+//      .pipe(uglify({ preserveComments: 'license' }))
       .pipe(concat('all.js').on('error', sass.logError))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('./dist/'));

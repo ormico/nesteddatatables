@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "DataTableNotNested";
+}
+@Styles.Render(@"~/bower_components/datatables.net-dt/css/jquery.dataTables.css")
+
+<h2>DataTable - Not Nested</h2>
+
+<div class="jumbotron">
+    <h1>Nested DataTables</h1>
+    <p class="lead">Nested DataTables is a jQuery Plugin that uses DataTables to open nested tables.</p>
+    <p><a href="http://datatables.net" class="btn btn-primary btn-lg">DataTables &raquo;</a></p>
+</div>
+
+<table id="example1" class="display">
+    <thead>
+        <tr>
+            <th>ParentId</th>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>HomePhoneNumber</th>
+            <th>WorkPhoneNumber</th>
+            <th>City</th>
+            <th>State</th>
+        </tr>
+    </thead>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            ajax: {
+                url: "/api/Data/Parent/all",
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'ParentId' },
+                { data: 'Name' },
+                { data: 'Birthday' },
+                { data: 'HomePhoneNumber' },
+                { data: 'WorkPhoneNumber' },
+                { data: 'City' },
+                { data: 'State' }
+            ]
+        });
+    });
+</script>

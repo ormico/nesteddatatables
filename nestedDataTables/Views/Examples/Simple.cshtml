@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Simple";
+}
+@Styles.Render(@"~/bower_components/datatables.net-dt/css/jquery.dataTables.css")
+@Scripts.Render("~/ndt/jquery.nestedDataTables.js")
+@* @Styles.Render("~/ndt/jquery.nestedDataTables.css")*@
+
+
+<h2>Simple Example</h2>
+<table id="example1" class="display"></table>
+
+<script>
+    $(function () {
+        $('#example1').nestedDataTables({
+            dataSource: { url: "/api/Data/Parent/all", type: "GET" },
+            columns:
+            [
+                { mDataProp: "ParentId", bVisible: false, sTitle: "Parent ID", nestedDataTables: { key: true } },
+                { mDataProp: "Name", sTitle: "Full Name" },
+                { mDataProp: "Birthday", sTitle: "Birthday" },
+                { mDataProp: "HomePhoneNumber", sTitle: "Home#" },
+                { mDataProp: "WorkPhoneNumber", sTitle: "Work#" },
+                { mDataProp: "City", sTitle: "City" },
+                { mDataProp: "State", sTitle: "State" }
+            ],
+            nestedDataTable:
+            {
+                dataSource: { url: "/api/Data/Parent/{ParentId}/Children", type: "GET" },
+                dataSourceModify: function (ajaxOptions, wsParams) {
+                    ajaxOptions.url = ajaxOptions.url.replace("{ParentId}", wsParams.ParentId);
+                    ajaxOptions.data = null;
+                },
+                columns:
+                [
+                    { mDataProp: "ChildId", bVisible: false, sTitle: "Child ID", nestedDataTables: { key: true } },
+                    { mDataProp: "ParentId", bVisible: false, sTitle: "Child ID", nestedDataTables: { key: true } },
+                    { mDataProp: "Name", sTitle: "Child Name" },
+                    { mDataProp: "Birthday", sTitle: "Birthday" },
+                    { mDataProp: "FavoriteColorHex", sTitle: "Favorite Color" }
+                ],
+                nestedDataTable:
+                {
+                    dataSource: { url: "/api/Data/Parent/{ParentId}/Child/{ChildId}/Toys", type: "GET" },
+                    dataSourceModify: function (ajaxOptions, wsParams) {
+                        ajaxOptions.url = ajaxOptions.url.replace("{ParentId}", wsParams.ParentId);
+                        ajaxOptions.url = ajaxOptions.url.replace("{ChildId}", wsParams.ChildId);
+                        ajaxOptions.data = null;
+                    },
+                    columns:
+                    [
+                        { mDataProp: "Name", sTitle: "Toy Name" },
+                        { mDataProp: "ToyType", sTitle: "Type" }
+                    ],
+                    nestedDataTable: null
+                }
+            }
+        });
+    });
+</script>
